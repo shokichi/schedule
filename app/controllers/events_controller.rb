@@ -7,6 +7,11 @@ class EventsController < ApplicationController
     @events = Event.all
   end
 
+  def event(user)
+    ev = sync_google_calender(user.user_id,user.password)
+    return ev
+  end
+
   # GET /events/1
   # GET /events/1.json
   def show

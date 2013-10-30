@@ -49,5 +49,26 @@ GitHubにレポジトリを作成したあと, 以下のコマンドを実行
  $ rails s 
 http://0.0.0.0:3000/events にアクセス
 
-== 
+== パスワード管理
+=== gemのインストール
+Gemfileでbrrypt-rubyをコメントイン
+ gem 'bcrypt-ruby','~> 3.0.0'
+
+ $ bundle
+
+=== モデル作成
+ $ rails generate model user user_id:string password_digest:string
+
+* モデル編集
+ class User < ActiveRecord::Base
+   has_secure_password
+   def user_params
+     params.require(:password_digest).permit(:user_id, :password)
+   end
+ end
+
+
+=== 参考ページ
+* ((<bcrypt-rubyをRailsで使う|URL:http://bakunyo.hatenablog.com/entry/2013/05/26/bcrypt-ruby%E3%82%92Rails%E3%81%A7%E4%BD%BF%E3%81%86>))
 =end
+
